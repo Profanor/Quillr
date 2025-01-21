@@ -1,40 +1,46 @@
-import { Controller, Get } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
+import { GrpcMethod, Payload } from '@nestjs/microservices';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 
-@Controller('books')
+@Controller()
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
-  @Get('test')
-  async getBooks() {
-    return await this.bookService.getBooks();
+  // gRPC method to create a book
+  @GrpcMethod('BookService', 'createBook')
+   create(@Payload() createBookDto: CreateBookDto) {
+    return this.bookService.createBook(createBookDto);
   }
 
-  @MessagePattern('createBook')
-  create(@Payload() createBookDto: CreateBookDto) {
-    return this.bookService.create(createBookDto);
+  // gRPC method to get details of a single book
+  @GrpcMethod('BookService', 'getBook')
+   findOne(@Payload() data: { id: string }) {
+    return this.bookService.getBook(data);
   }
 
-  @MessagePattern('findAllBook')
-  findAll() {
-    return this.bookService.findAll();
+  // gRPC method to list all books
+  @GrpcMethod('BookService', 'listBooks')
+  async listBooks() {
+    return await this.bookService.listBooks();
   }
 
-  @MessagePattern('findOneBook')
-  findOne(@Payload() id: number) {
-    return this.bookService.findOne(id);
+  // gRPC method to update a book
+  @GrpcMethod('BookService', 'updateBook')
+  async updateBook(updateBookDto: UpdateBookDto & { id: string }) {
+    return await this.bookService.updateBook(updateBookDto);
   }
 
-  @MessagePattern('updateBook')
-  update(@Payload() updateBookDto: UpdateBookDto) {
-    return this.bookService.update(updateBookDto.id, updateBookDto);
+  // gRPC method to delete a book
+  @GrpcMethod('BookService', 'deleteBook')
+  async deleteBook(data: { id: string }) {
+    return await this.bookService.deleteBook(data);
   }
 
-  @MessagePattern('removeBook')
-  remove(@Payload() id: number) {
-    return this.bookService.remove(id);
+  // gRPC method to retrieve books by a specific author
+  @GrpcMethod('BookService', 'getBooksByAuthor')
+  async getBooksByAuthor(data: { authorId: string }) {
+    return await this.bookService.getBooksByAuthor(data);
   }
 }

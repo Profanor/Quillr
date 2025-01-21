@@ -17,73 +17,70 @@ const common_1 = require("@nestjs/common");
 const microservices_1 = require("@nestjs/microservices");
 const book_service_1 = require("./book.service");
 const create_book_dto_1 = require("./dto/create-book.dto");
-const update_book_dto_1 = require("./dto/update-book.dto");
 let BookController = class BookController {
     constructor(bookService) {
         this.bookService = bookService;
     }
-    async getBooks() {
-        return await this.bookService.getBooks();
-    }
     create(createBookDto) {
-        return this.bookService.create(createBookDto);
+        return this.bookService.createBook(createBookDto);
     }
-    findAll() {
-        return this.bookService.findAll();
+    findOne(data) {
+        return this.bookService.getBook(data);
     }
-    findOne(id) {
-        return this.bookService.findOne(id);
+    async listBooks() {
+        return await this.bookService.listBooks();
     }
-    update(updateBookDto) {
-        return this.bookService.update(updateBookDto.id, updateBookDto);
+    async updateBook(updateBookDto) {
+        return await this.bookService.updateBook(updateBookDto);
     }
-    remove(id) {
-        return this.bookService.remove(id);
+    async deleteBook(data) {
+        return await this.bookService.deleteBook(data);
+    }
+    async getBooksByAuthor(data) {
+        return await this.bookService.getBooksByAuthor(data);
     }
 };
 exports.BookController = BookController;
 __decorate([
-    (0, common_1.Get)('test'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], BookController.prototype, "getBooks", null);
-__decorate([
-    (0, microservices_1.MessagePattern)('createBook'),
+    (0, microservices_1.GrpcMethod)('BookService', 'createBook'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_book_dto_1.CreateBookDto]),
     __metadata("design:returntype", void 0)
 ], BookController.prototype, "create", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findAllBook'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], BookController.prototype, "findAll", null);
-__decorate([
-    (0, microservices_1.MessagePattern)('findOneBook'),
+    (0, microservices_1.GrpcMethod)('BookService', 'getBook'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], BookController.prototype, "findOne", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('updateBook'),
-    __param(0, (0, microservices_1.Payload)()),
+    (0, microservices_1.GrpcMethod)('BookService', 'listBooks'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [update_book_dto_1.UpdateBookDto]),
-    __metadata("design:returntype", void 0)
-], BookController.prototype, "update", null);
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], BookController.prototype, "listBooks", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('removeBook'),
-    __param(0, (0, microservices_1.Payload)()),
+    (0, microservices_1.GrpcMethod)('BookService', 'updateBook'),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], BookController.prototype, "remove", null);
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BookController.prototype, "updateBook", null);
+__decorate([
+    (0, microservices_1.GrpcMethod)('BookService', 'deleteBook'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BookController.prototype, "deleteBook", null);
+__decorate([
+    (0, microservices_1.GrpcMethod)('BookService', 'getBooksByAuthor'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], BookController.prototype, "getBooksByAuthor", null);
 exports.BookController = BookController = __decorate([
-    (0, common_1.Controller)('books'),
+    (0, common_1.Controller)(),
     __metadata("design:paramtypes", [book_service_1.BookService])
 ], BookController);
 //# sourceMappingURL=book.controller.js.map

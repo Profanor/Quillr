@@ -1,40 +1,40 @@
-import { Controller, Get } from '@nestjs/common';
-import { MessagePattern, Payload } from '@nestjs/microservices';
+import { Controller } from '@nestjs/common';
+import { GrpcMethod, Payload } from '@nestjs/microservices';
 import { AuthorService } from './author.service';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
 
-@Controller('authors')
+@Controller()
 export class AuthorController {
   constructor(private readonly authorService: AuthorService) {}
 
-  @Get('test')
-  async getAuthors() {
-    return await this.authorService.getAuthors();
-  }
-
-  @MessagePattern('createAuthor')
+  // createAuthor method
+  @GrpcMethod('AuthorService', 'createAuthor')
   create(@Payload() createAuthorDto: CreateAuthorDto) {
-    return this.authorService.create(createAuthorDto);
+    return this.authorService.createAuthor(createAuthorDto);
   }
 
-  @MessagePattern('findAllAuthor')
-  findAll() {
-    return this.authorService.findAll();
+  // getAuthor method
+  @GrpcMethod('AuthorService', 'getAuthor')
+  findOne(@Payload() data: { id: string }) {
+    return this.authorService.getAuthor(data);
   }
 
-  @MessagePattern('findOneAuthor')
-  findOne(@Payload() id: number) {
-    return this.authorService.findOne(id);
-  }
-
-  @MessagePattern('updateAuthor')
+  // updateAuthor method
+  @GrpcMethod('AuthorService', 'updateAuthor')
   update(@Payload() updateAuthorDto: UpdateAuthorDto) {
-    return this.authorService.update(updateAuthorDto.id, updateAuthorDto);
+    return this.authorService.updateAuthor(updateAuthorDto);
   }
 
-  @MessagePattern('removeAuthor')
-  remove(@Payload() id: number) {
-    return this.authorService.remove(id);
+  // listAuthors method
+  @GrpcMethod('AuthorService', 'listAuthors')
+  async listAuthors() {
+    return await this.authorService.listAuthors();
+  }
+
+  // deleteAuthor method
+  @GrpcMethod('AuthorService', 'deleteAuthor')
+  async delete(@Payload() data: { id: string }) {
+    return this.authorService.deleteAuthor(data);
   }
 }

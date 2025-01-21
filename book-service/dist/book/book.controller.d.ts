@@ -4,16 +4,57 @@ import { UpdateBookDto } from './dto/update-book.dto';
 export declare class BookController {
     private readonly bookService;
     constructor(bookService: BookService);
-    getBooks(): Promise<{
+    create(createBookDto: CreateBookDto): Promise<{
         id: string;
         title: string;
         authorId: string;
         publishedYear: number;
-        createdAt: Date;
-    }[]>;
-    create(createBookDto: CreateBookDto): string;
-    findAll(): string;
-    findOne(id: number): string;
-    update(updateBookDto: UpdateBookDto): string;
-    remove(id: number): string;
+        createdAt: string;
+    }>;
+    findOne(data: {
+        id: string;
+    }): Promise<{
+        id: string;
+        title: string;
+        authorId: string;
+        publishedYear: number;
+        createdAt: string;
+    }>;
+    listBooks(): Promise<{
+        books: {
+            id: string;
+            title: string;
+            authorId: string;
+            publishedYear: number;
+            createdAt: string;
+        }[];
+    }>;
+    updateBook(updateBookDto: UpdateBookDto & {
+        id: string;
+    }): Promise<{
+        id: string;
+        title: string;
+        authorId: string;
+        publishedYear: number;
+        createdAt: string;
+    }>;
+    deleteBook(data: {
+        id: string;
+    }): Promise<{
+        message: string;
+    }>;
+    getBooksByAuthor(data: {
+        authorId: string;
+    }): Promise<{
+        author: {
+            id: any;
+            name: any;
+        };
+        books: {
+            id: string;
+            title: string;
+            publishedYear: number;
+            createdAt: string;
+        }[];
+    }>;
 }

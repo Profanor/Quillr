@@ -22,68 +22,59 @@ let AuthorController = class AuthorController {
     constructor(authorService) {
         this.authorService = authorService;
     }
-    async getAuthors() {
-        return await this.authorService.getAuthors();
-    }
     create(createAuthorDto) {
-        return this.authorService.create(createAuthorDto);
+        return this.authorService.createAuthor(createAuthorDto);
     }
-    findAll() {
-        return this.authorService.findAll();
-    }
-    findOne(id) {
-        return this.authorService.findOne(id);
+    findOne(data) {
+        return this.authorService.getAuthor(data);
     }
     update(updateAuthorDto) {
-        return this.authorService.update(updateAuthorDto.id, updateAuthorDto);
+        return this.authorService.updateAuthor(updateAuthorDto);
     }
-    remove(id) {
-        return this.authorService.remove(id);
+    async listAuthors() {
+        return await this.authorService.listAuthors();
+    }
+    async delete(data) {
+        return this.authorService.deleteAuthor(data);
     }
 };
 exports.AuthorController = AuthorController;
 __decorate([
-    (0, common_1.Get)('test'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AuthorController.prototype, "getAuthors", null);
-__decorate([
-    (0, microservices_1.MessagePattern)('createAuthor'),
+    (0, microservices_1.GrpcMethod)('AuthorService', 'createAuthor'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_author_dto_1.CreateAuthorDto]),
     __metadata("design:returntype", void 0)
 ], AuthorController.prototype, "create", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('findAllAuthor'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AuthorController.prototype, "findAll", null);
-__decorate([
-    (0, microservices_1.MessagePattern)('findOneAuthor'),
+    (0, microservices_1.GrpcMethod)('AuthorService', 'getAuthor'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
+    __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], AuthorController.prototype, "findOne", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('updateAuthor'),
+    (0, microservices_1.GrpcMethod)('AuthorService', 'updateAuthor'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_author_dto_1.UpdateAuthorDto]),
     __metadata("design:returntype", void 0)
 ], AuthorController.prototype, "update", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('removeAuthor'),
+    (0, microservices_1.GrpcMethod)('AuthorService', 'listAuthors'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthorController.prototype, "listAuthors", null);
+__decorate([
+    (0, microservices_1.GrpcMethod)('AuthorService', 'deleteAuthor'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", void 0)
-], AuthorController.prototype, "remove", null);
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AuthorController.prototype, "delete", null);
 exports.AuthorController = AuthorController = __decorate([
-    (0, common_1.Controller)('authors'),
+    (0, common_1.Controller)(),
     __metadata("design:paramtypes", [author_service_1.AuthorService])
 ], AuthorController);
 //# sourceMappingURL=author.controller.js.map

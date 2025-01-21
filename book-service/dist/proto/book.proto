@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package book;
+
+import "author.proto";  // Import the author service for inter-service communication
+
+service BookService {
+  rpc createBook (CreateBookRequest) returns (BookResponse);
+  rpc getBook (GetBookRequest) returns (BookResponse);
+  rpc updateBook (UpdateBookRequest) returns (BookResponse);
+  rpc deleteBook (DeleteBookRequest) returns (BookResponse);
+  rpc listBooks (ListBooksRequest) returns (ListBooksResponse);
+  rpc getBooksByAuthor (GetBooksByAuthorRequest) returns (ListBooksResponse);
+}
+
+message CreateBookRequest {
+  string title = 1;
+  string authorId = 2;
+  int32 publishedYear = 3;
+}
+
+message GetBookRequest {
+  string id = 1;
+}
+
+message UpdateBookRequest {
+  string id = 1;
+  string title = 2;
+  string authorId = 3;
+  int32 publishedYear = 4;
+}
+
+message DeleteBookRequest {
+  string id = 1;
+}
+
+message ListBooksRequest {}
+
+message BookResponse {
+  string id = 1;
+  string title = 2;
+  string authorId = 3;
+  int32 publishedYear = 4;
+  string createdAt = 5;
+}
+
+message ListBooksResponse {
+  repeated BookResponse books = 1;
+}
+
+message GetBooksByAuthorRequest {
+  string authorId = 1;
+}
