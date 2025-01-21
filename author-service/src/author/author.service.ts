@@ -1,9 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateAuthorDto } from './dto/create-author.dto';
 import { UpdateAuthorDto } from './dto/update-author.dto';
+import { PrismaService } from '../prisma.service';
 
 @Injectable()
 export class AuthorService {
+  constructor(private prisma: PrismaService) {}
+
+  async getAuthors() {
+    return await this.prisma.author.findMany();
+  }
+
+
   create(createAuthorDto: CreateAuthorDto) {
     return 'This action adds a new author';
   }

@@ -1,12 +1,17 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { BookService } from './book.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 
-@Controller()
+@Controller('books')
 export class BookController {
   constructor(private readonly bookService: BookService) {}
+
+  @Get('test')
+  async getBooks() {
+    return await this.bookService.getBooks();
+  }
 
   @MessagePattern('createBook')
   create(@Payload() createBookDto: CreateBookDto) {
