@@ -53,6 +53,7 @@ export declare class BookController {
         books: {
             id: string;
             title: string;
+            authorId: string;
             publishedYear: number;
             createdAt: string;
         }[];

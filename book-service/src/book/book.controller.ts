@@ -8,7 +8,6 @@ import { UpdateBookDto } from './dto/update-book.dto';
 export class BookController {
   constructor(private readonly bookService: BookService) {}
 
-  // gRPC method to create a book
   @GrpcMethod('BookService', 'createBook')
    create(@Payload() createBookDto: CreateBookDto) {
     return this.bookService.createBook(createBookDto);

@@ -22,6 +22,8 @@ let BookService = class BookService {
     constructor(prisma, client) {
         this.prisma = prisma;
         this.client = client;
+    }
+    onModuleInit() {
         this.authorClient = this.client.getService('AuthorService');
     }
     async createBook(createBookDto) {
@@ -124,6 +126,7 @@ let BookService = class BookService {
             books: books.map((book) => ({
                 id: book.id,
                 title: book.title,
+                authorId: book.authorId,
                 publishedYear: book.publishedYear,
                 createdAt: book.createdAt.toISOString(),
             })),

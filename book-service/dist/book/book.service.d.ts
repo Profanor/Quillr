@@ -7,6 +7,7 @@ export declare class BookService {
     private client;
     private authorClient;
     constructor(prisma: PrismaService, client: ClientGrpc);
+    onModuleInit(): void;
     createBook(createBookDto: CreateBookDto): Promise<{
         id: string;
         title: string;
@@ -56,6 +57,7 @@ export declare class BookService {
         books: {
             id: string;
             title: string;
+            authorId: string;
             publishedYear: number;
             createdAt: string;
         }[];

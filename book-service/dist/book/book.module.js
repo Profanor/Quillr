@@ -9,6 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.BookModule = void 0;
 const common_1 = require("@nestjs/common");
 const book_service_1 = require("./book.service");
+const book_controller_1 = require("./book.controller");
 const prisma_service_1 = require("../prisma.service");
 const microservices_1 = require("@nestjs/microservices");
 const path_1 = require("path");
@@ -23,6 +24,7 @@ exports.BookModule = BookModule = __decorate([
                     name: 'AUTHOR_PACKAGE',
                     transport: microservices_1.Transport.GRPC,
                     options: {
+                        url: 'localhost:50051',
                         package: 'author',
                         protoPath: (0, path_1.join)(__dirname, '../proto/author.proto'),
                     },
@@ -30,6 +32,7 @@ exports.BookModule = BookModule = __decorate([
             ]),
         ],
         providers: [book_service_1.BookService, prisma_service_1.PrismaService],
+        controllers: [book_controller_1.BookController],
     })
 ], BookModule);
 //# sourceMappingURL=book.module.js.map

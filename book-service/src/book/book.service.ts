@@ -17,7 +17,10 @@ export class BookService {
   constructor(
     private prisma: PrismaService,
     @Inject('AUTHOR_PACKAGE') private client: ClientGrpc,
-  ) {
+  ) {}
+
+  onModuleInit() {
+    // initialize the AuthorService client
     this.authorClient = this.client.getService<AuthorServiceClient>('AuthorService');
   }
 
@@ -74,7 +77,7 @@ export class BookService {
     };
   }
 
-  // update book details
+  // update book
   @GrpcMethod('BookService', 'updateBook')
   async updateBook( updateBookDto: UpdateBookDto & { id: string } ) {
     const { id, title, publishedYear } = updateBookDto;
@@ -157,6 +160,7 @@ export class BookService {
       books: books.map((book) => ({
         id: book.id,
         title: book.title,
+        authorId: book.authorId,
         publishedYear: book.publishedYear,
         createdAt: book.createdAt.toISOString(),
       })),

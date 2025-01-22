@@ -1,0 +1,13 @@
+{
+  "details": {
+    "methodFqn": "book.BookService.getBooksByAuthor"
+  },
+  "requests": [
+    {
+      "location": "getBooksByAuthor-request.json"
+    }
+  ],
+  "operationType": "unary",
+  "invokerName": "grpc",
+  "importStreamId": "01b940e4-70ff-4a26-945d-8d79edc71ceb"
+}
