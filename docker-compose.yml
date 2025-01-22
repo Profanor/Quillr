@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: author-service
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql  # SQL script to create the second DB
+
+  author-service:
+    image: author-service-image
+    container_name: author_service
+    restart: always
+    environment:
+      DATABASE_URL: postgres://postgres:@postgres:5432/author-service
+    depends_on:
+      - postgres
+    ports:
+      - "50051:50051"
+
+  book-service:
+    image: book-service-image
+    container_name: book_service
+    restart: always
+    environment:
+      DATABASE_URL: postgres://postgres:@postgres:5432/book-service
+      AUTHOR_SERVICE_URL: author-service:50051
+    depends_on:
+      - postgres
+      - author-service
+    ports:
+      - "50052:50052"
+
+volumes:
+  postgres_data:
