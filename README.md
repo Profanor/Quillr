@@ -1,4 +1,4 @@
-# gRPC-based Microservices Architecture with NestJS, Prisma, Docker, and Kubernetes
+# Project Smartvirtual
 
 ## Overview
 
@@ -101,14 +101,13 @@ services:
 volumes:
   postgres_data:
 
-Dockerfiles for Author and Book Services:
+```
+
+## Dockerfiles for Author and Book Services:
 Both services require Dockerfiles to define their environment, install dependencies, and run the applications.
 
-Author Service and Book Service Dockerfile:
+### Author Service and Book Service Dockerfile:
 
-dockerfile
-Copy
-Edit
 FROM node:18-alpine
 
 WORKDIR /app
@@ -123,13 +122,39 @@ EXPOSE 50051
 CMD ["npm", "run", "start:prod"]
 
 
-Steps to Run Services Locally Using Docker Compose
-Clone the repository and navigate to the project directory.
-Ensure Docker is installed and running on your system.
-Build and run the services using Docker Compose:
-bash
-Copy
-Edit
+## Steps to Run Services Locally Using Docker Compose
+
+1. Clone the repository and navigate to the project directory.
+2. Ensure Docker is installed and running on your system.
+3. Build and run the services using Docker Compose:
+
+```
 docker-compose up --build
-The Author Service will be exposed at port 50051, and the Book Service will be exposed at port 50052.
-The PostgreSQL database will be accessible at port 5432.
+```
+
+### The Author Service will be exposed at port 50051, and the Book Service will be exposed at port 50052.
+
+### The PostgreSQL database will be accessible at port 5432.
+
+
+## Steps to Deploy Services on Kubernetes
+1. Install kubectl and configure it to connect to your Kubernetes cluster.
+2. Apply the Kubernetes deployment and service files:
+
+```
+kubectl apply -f author-service-deployment.yaml
+kubectl apply -f book-service-deployment.yaml
+kubectl apply -f postgres-deployment.yaml
+```
+
+## Apply the ConfigMaps or Secrets for handling environment variables:
+```
+kubectl apply -f database-secret.yaml
+```
+
+## Check the status of the pods:
+```
+kubectl get pods
+```
+
+## Expose the services via a load balancer (optional).
