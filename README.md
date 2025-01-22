@@ -107,7 +107,7 @@ volumes:
 Both services require Dockerfiles to define their environment, install dependencies, and run the applications.
 
 ### Author Service and Book Service Dockerfile:
-
+```
 FROM node:18-alpine
 
 WORKDIR /app
@@ -120,7 +120,7 @@ COPY . .
 EXPOSE 50051
 
 CMD ["npm", "run", "start:prod"]
-
+```
 
 ## Steps to Run Services Locally Using Docker Compose
 
@@ -132,9 +132,7 @@ CMD ["npm", "run", "start:prod"]
 docker-compose up --build
 ```
 
-### The Author Service will be exposed at port 50051, and the Book Service will be exposed at port 50052.
-
-### The PostgreSQL database will be accessible at port 5432.
+### The Author Service will be exposed at port 50051, and the Book Service will be exposed at port 50052. The PostgreSQL database will be accessible at port 5432.
 
 
 ## Steps to Deploy Services on Kubernetes
@@ -157,4 +155,85 @@ kubectl apply -f database-secret.yaml
 kubectl get pods
 ```
 
-## Expose the services via a load balancer (optional).
+## Expose the services via a load balancer.
+
+
+## API Details for gRPC Endpoints
+
+### Author Service
+- createAuthor: Creates a new author.
+
+### Request:
+```
+message CreateAuthorRequest {
+  string name = 1;
+  string email = 2;
+}
+```
+
+### Response:
+```
+message Author {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+```
+
+getAuthor: Retrieves an author by id.
+
+### Request:
+```
+message GetAuthorRequest {
+  string id = 1;
+}
+```
+
+### Response:
+```
+message Author {
+  string id = 1;
+  string name = 2;
+  string email = 3;
+}
+```
+
+
+### Book Service
+createBook: Creates a new book.
+
+Request:
+proto
+Copy
+Edit
+message CreateBookRequest {
+  string title = 1;
+  string authorId = 2;
+  int32 publishedYear = 3;
+}
+Response:
+proto
+Copy
+Edit
+message Book {
+  string id = 1;
+  string title = 2;
+  string authorId = 3;
+  int32 publishedYear = 4;
+}
+getBooksByAuthor: Retrieves all books by a specific author.
+
+Request:
+proto
+Copy
+Edit
+message GetBooksByAuthorRequest {
+  string authorId = 1;
+}
+Response:
+proto
+Copy
+Edit
+message BookList {
+  repeated Book books = 1;
+}
