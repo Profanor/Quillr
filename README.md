@@ -180,7 +180,7 @@ message Author {
 }
 ```
 
-getAuthor: Retrieves an author by id.
+- getAuthor: Retrieves an author by id.
 
 ### Request:
 ```
@@ -200,40 +200,39 @@ message Author {
 
 
 ### Book Service
-createBook: Creates a new book.
+- createBook: Creates a new book.
 
-Request:
-proto
-Copy
-Edit
+### Request:
+```
 message CreateBookRequest {
   string title = 1;
   string authorId = 2;
   int32 publishedYear = 3;
 }
-Response:
-proto
-Copy
-Edit
+```
+
+### Response:
+```
 message Book {
   string id = 1;
   string title = 2;
   string authorId = 3;
   int32 publishedYear = 4;
 }
-getBooksByAuthor: Retrieves all books by a specific author.
+```
 
-Request:
-proto
-Copy
-Edit
+- getBooksByAuthor: Retrieves all books by a specific author.
+
+### Request:
+```
 message GetBooksByAuthorRequest {
   string authorId = 1;
 }
-Response:
-proto
-Copy
-Edit
+```
+
+### Response:
+```
 message BookList {
   repeated Book books = 1;
 }
+```
