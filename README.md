@@ -1,15 +1,13 @@
-# Project Quillr 📚
+# Quillr 📚
 
 ## 🚀 Overview
 
-This project implements a gRPC-based microservices architecture using **NestJS**, **Prisma ORM**, **Docker**, and **Kubernetes**. The system consists of two microservices: **Author Service** and **Book Service**, which interact with each other via gRPC. The project uses **PostgreSQL** for data storage and **Docker** for containerization. **Kubernetes** is used to orchestrate the deployment and scaling of the microservices.
+Quillr implements a gRPC-based microservices architecture using **NestJS**, **Prisma ORM**, **Docker**, and **Kubernetes**. The system consists of two microservices: **Author Service** and **Book Service**, which interact with each other via gRPC. The system uses **PostgreSQL** for data storage and **Docker** for containerization. **Kubernetes** is used to orchestrate the deployment and scaling of the microservices.
 
-## Task Breakdown
+It consists of two services:
+ **Author Service** and **Book Service**. Both of these services expose different gRPC methods to manage their respective entities.
 
-### 1. Services to Implement
-
-There are two microservices: **Author Service** and **Book Service**. Both of these services expose different gRPC methods to manage their respective entities.
-
+🛠️ Architecture
 #### **Author Service:**
 The **Author Service** is responsible for managing CRUD operations for authors. It interacts with a PostgreSQL database, where each author has an `id`, `name`, `email`, and `createdAt` field.
 
