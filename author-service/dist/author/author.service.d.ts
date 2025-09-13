@@ -5,24 +5,24 @@ export declare class AuthorService {
     private prisma;
     constructor(prisma: PrismaService);
     createAuthor(createAuthorDto: CreateAuthorDto): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     getAuthor(data: {
         id: string;
     }): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     updateAuthor(updateAuthorDto: UpdateAuthorDto): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     deleteAuthor(data: {
         id: string;
@@ -30,11 +30,6 @@ export declare class AuthorService {
         message: string;
     }>;
     listAuthors(): Promise<{
-        authors: {
-            id: string;
-            name: string;
-            email: string;
-            createdAt: string;
-        }[];
+        authors: any;
     }>;
 }

@@ -5,32 +5,27 @@ export declare class AuthorController {
     private readonly authorService;
     constructor(authorService: AuthorService);
     create(createAuthorDto: CreateAuthorDto): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     findOne(data: {
         id: string;
     }): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     update(updateAuthorDto: UpdateAuthorDto): Promise<{
-        id: string;
-        name: string;
-        email: string;
-        createdAt: string;
+        id: any;
+        name: any;
+        email: any;
+        createdAt: any;
     }>;
     listAuthors(): Promise<{
-        authors: {
-            id: string;
-            name: string;
-            email: string;
-            createdAt: string;
-        }[];
+        authors: any;
     }>;
     delete(data: {
         id: string;
